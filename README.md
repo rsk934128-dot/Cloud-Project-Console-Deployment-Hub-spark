@@ -1,11 +1,152 @@
-<div align="center">
+# ☁️ Cloud Project Console & Deployment Hub
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+> **আধুনিক ক্লাউড ডেপ্লয়মেন্ট, এজ ইমেজ অপটিমাইজেশন, মাইক্রো-ভিএম স্যান্ডবক্স এবং সেল্ফ-হিলিং অপস কনসোল**  
+> A mission-critical, full-featured cloud project management console built with React 19, TypeScript, Tailwind CSS, and Vite.
 
-  <h1>Built with AI Studio</h2>
+<p align="center">
+  <img src="./public/assets/images/cloud_console_banner_1789929035948.jpg" alt="Cloud Project Console & Deployment Hub" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.4);" />
+</p>
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+---
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## 🌟 ওভারভিউ (Project Overview)
 
-</div>
+**Cloud Project Console & Deployment Hub** হলো একটি আধুনিক ও শক্তিশালী ক্লাউড ম্যানেজমেন্ট ড্যাশবোর্ড। এটি ডেভেলপার এবং ডেভঅপস ইঞ্জিনিয়ারদের রিয়েল-টাইমে প্রজেক্ট ডেপ্লয়মেন্ট পরিচালনা, এজ ইমেজ প্রসেসিং, সিকিউর মাইক্রো-ভিএম স্যান্ডবক্সিং এবং এআই-চালিত সেল্ফ-হিলিং ইনফ্রাস্ট্রাকচার পরিচালনার সুবিধা দেয়।
+
+---
+
+## ✨ প্রধান ফিচারসমূহ (Key Features)
+
+### 1. 🖼️ এজ ইমেজ অপ্টিমাইজেশন পাইপলাইন (Edge Image Optimization Pipeline)
+
+<p align="center">
+  <img src="./public/assets/images/edge_pipeline_cdn_1789929050562.jpg" alt="Edge Image Optimization Pipeline & CDN" width="100%" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+</p>
+
+- **Next-Gen ফরম্যাট রূপান্তর**: ব্রাউজার সামঞ্জস্যের ওপর ভিত্তি করে নিমেষেই **AVIF**, **WebP**, **PNG**, এবং প্রগ্রেসিভ **JPEG** ফরম্যাটে রূপান্তর।
+- **লাইভ সাইড-বাই-সাইড কম্প্যারিজন**: আসল ছবি এবং কম্প্রেস করা ছবির গুণগত মান ও ফাইল সাইজ রিডাকশন (যেমন ৯১.৬% ব্যান্ডউইথ সাশ্রয়) সরাসরি পর্যবেক্ষণ।
+- **ডায়নামিক CDN URL ও ট্রান্সফর্মেশন**: অন-দ্য-ফ্লাই রিসাইজিং (`w`, `h`, `fit`), ব্লার প্লেসহোল্ডার (LQIP), মেটাডেটা স্ট্রিপিং ও এআই ফেস-ডিটেকশন ক্রপিং।
+- **রেসপনসিভ `<picture>` স্নsnippet জেনারেটর**: Core Web Vitals (LCP, CLS) অপ্টিমাইজেশনের জন্য রেডিমেড HTML কোড।
+- **লাইভ ডেলিভারি লগ ও ক্যাশ পার্জ**: গ্লোবাল এজ পিওপি (IAD1, FRA1, NRT1, LHR1) ক্যাশ হিট/মিস ট্র্যাকিং এবং ১-ক্লিকে গ্লোবাল ক্যাশ পার্জ।
+
+### 2. 📦 মাইক্রো-ভিএম স্যান্ডবক্স (Firecracker MicroVM Sandboxes)
+
+<p align="center">
+  <img src="./public/assets/images/microvm_sandboxes_1789929064795.jpg" alt="Firecracker MicroVM Sandboxes & Autonomous Ops" width="100%" style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+</p>
+
+- সিকিউর ও আইসোলেটেড এফিমোরাল কম্পিউট এনভায়রনমেন্ট।
+- প্রতিটি স্যান্ডবক্সের জন্য নিবেদিত vCPU, RAM, এবং রিয়েল-টাইম লাইফসাইকেল কন্ট্রোল (স্টার্ট, স্টপ, রিবুট, রি-ইমেজ)।
+
+### 3. 🤖 অটোনোমাস অপস এজেন্ট (Self-Healing Ops Agent)
+- ইনফ্রাস্ট্রাকচার অ্যানোমালি এবং ফেইলিউর স্বয়ংক্রিয়ভাবে শনাক্তকরণ।
+- অটোমেটেড রুট-কজ ডায়াগনস্টিকস এবং জিরো-হিউম্যান-ইন্টারভেনশন রোলব্যাক।
+
+### 4. 🧠 এআই গেটওয়ে ও ইনফারেন্স প্রক্সি (AI Gateway & Inference Proxy)
+- মাল্টি-মডেল রাউটিং এবং ফলব্যাক পলিসি।
+- সিম্যান্টিক ক্যাশিং ও লেটেন্সি মনিটরিংয়ের মাধ্যমে এআই মডেল কল সাশ্রয় ও দ্রুততর করা।
+
+### 5. 📬 জিমেইল ইনসিডেন্ট অ্যালার্টস (Gmail Incident Alerts)
+- ক্রিটিকাল এরর, ট্র্যাফিক স্পাইক বা ডেপ্লয়মেন্ট ব্যর্থতায় তাৎক্ষণিক জিমেইল নোটিফিকেশন।
+- গুগল অথেন্টিকেশন ও নিরাপদ টোকেন হ্যান্ডলিং।
+
+### 6. 🌐 গ্লোবাল CDN, WAF ফায়ারওয়াল এবং ভিপিসি কানেক্ট (Security & Networking)
+- ডিডিওএস (DDoS) প্রটেকশন, জিওগ্রাফিক রাউটিং এবং রেট লিমিটার।
+- ক্লাউড প্রজেক্ট ও প্রাইভেট ডাটাবেসের মধ্যে নিরাপদ প্রাইভেট ভিপিসি ইন্টারকানেক্ট।
+
+### 7. 🚩 ফিচার ফ্ল্যাগ ও এনভায়রনমেন্ট ভেরিয়েবলস (Feature Flags & Secrets)
+- ইনস্ট্যান্ট ক্যানারি রিলিজ এবং জিরো-ডাউনটাইম রানটাইম কনফিগারেশন।
+- প্রোডাকশন, স্টেজিং ও প্রিভিউ ব্রাঞ্চের জন্য নিরাপদ এনভায়রনমেন্ট ভেরিয়েবল ম্যানেজমেন্ট।
+
+---
+
+## 🛠️ টেকনোলজি স্ট্যাক (Technology Stack)
+
+| স্তর | প্রযুক্তি | বিবরণ |
+| :--- | :--- | :--- |
+| **Frontend Core** | [React 19](https://react.dev/) | লেটেস্ট রিঅ্যাক্ট কোর আর্কিটেকচার |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) | সম্পূর্ণ টাইপ-সেফ কোডবেস |
+| **Bundler & Server** | [Vite 8](https://vite.dev/) | আল্ট্রা-ফাস্ট ডেভলপমেন্ট সার্ভার এবং এইচএমআর |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | মডার্ন ইউটিলিটি-ফার্স্ট সিএসএস ফ্রেমওয়ার্ক |
+| **Animations** | [Motion](https://motion.dev/) | ফ্লুইড কম্পোনেন্ট ট্রানজিশন ও লেআউট অ্যানিমেশন |
+| **Icons** | [Lucide React](https://lucide.dev/) | দৃষ্টিনন্দন ও আধুনিক ভেক্টর আইকন সেট |
+| **AI Integration** | [@google/genai](https://www.npmjs.com/package/@google/genai) | গুগল জেমিনি এআই ইন্টিগ্রেশন |
+
+---
+
+## 📁 ফোল্ডার স্ট্রাকচার (Project Structure)
+
+```text
+├── public/                 # স্ট্যাটিক অ্যাসেটস
+├── src/
+│   ├── components/         # মডুলার ইউআই কনসোলসমূহ
+│   │   ├── ImagePipelineConsole.tsx   # এজ ইমেজ পাইপলাইন ও স্টুডিও
+│   │   ├── SandboxesConsole.tsx       # মাইক্রো-ভিএম স্যান্ডবক্স কনসোল
+│   │   ├── AgentConsole.tsx           # স্বয়ংক্রিয় অপস এজেন্ট ইন্টারফেস
+│   │   ├── AIGatewayConsole.tsx       # এআই গেটওয়ে প্রক্সি
+│   │   ├── DeploymentsView.tsx        # অ্যাক্টিভ ডেপ্লয়মেন্ট হিস্ট্রি
+│   │   ├── FirewallConsole.tsx        # ডাব্লুএএফ ও ফায়ারওয়াল রুলস
+│   │   ├── GmailAlertModal.tsx        # জিমেইল অ্যালার্ট কনফিগারেশন
+│   │   ├── Sidebar.tsx                # রেসপনসিভ ন্যাভিগেশন বার
+│   │   └── ...
+│   ├── data/               # ডেমো ডাটা ও ইনিশিয়াল কনফিগারেশন
+│   ├── types/              # টাইপস্ক্রিপ্ট ইন্টারফেস ও ডেটা টাইপস
+│   ├── App.tsx             # মূল অ্যাপ্লিকেশন রুট কম্পোনেন্ট
+│   ├── main.tsx            # রেন্ডারিং এন্ট্রি পয়েন্ট
+│   └── index.css           # গ্লোবাল টেইলউইন্ড সিএসএস রুলস
+├── .env.example            # এনভায়রনমেন্ট ভেরিয়েবল টেমপ্লেট
+├── index.html              # এইচটিএমএল এন্ট্রি পয়েন্ট
+├── metadata.json           # প্রজেক্ট মেটাডেটা ও পারমিশন
+├── package.json            # ডিপেন্ডেন্সি ও স্ক্রিপ্টসমূহ
+└── vite.config.ts          # ভাইট প্লাগইন ও পোর্ট কনফিগারেশন
+```
+
+---
+
+## 🚀 লোকাল সেটআপ ও রান করার নিয়ম (Getting Started)
+
+### ১. প্রি-রিক্যুইজিট
+- [Node.js](https://nodejs.org/) (সংস্করণ ১৮ বা তার বেশি)
+- `npm`, `yarn`, অথবা `bun` প্যাকেজ ম্যানেজার
+
+### ২. ডিপেন্ডেন্সি ইনস্টল করুন
+```bash
+npm install
+```
+
+### ৩. এনভায়রনমেন্ট ভেরিয়েবল সেটআপ
+প্রজেক্টের রুটে `.env.example` থেকে একটি `.env` ফাইল তৈরি করুন:
+```bash
+cp .env.example .env
+```
+প্রয়োজনে আপনার `GEMINI_API_KEY` প্রদান করুন।
+
+### ৪. ডেভেলপমেন্ট সার্ভার চালু করুন
+```bash
+npm run dev
+```
+ব্রাউজারে ওপেন করুন: `http://localhost:3000`
+
+---
+
+## 📜 স্ক্রিপ্টসমূহ (Available Scripts)
+
+- **`npm run dev`**: লোকাল ডেভেলপমেন্ট সার্ভার চালু করে (`port: 3000`).
+- **`npm run build`**: প্রোডাকশন রেডি বিল্ড তৈরি করে (`dist/` ফোল্ডারে).
+- **`npm run lint`**: টাইপস্ক্রিপ্ট টাইপ-চেকিং ও সিনট্যাক্স যাচাই করে (`tsc --noEmit`).
+- **`npm run preview`**: প্রোডাকশন বিল্ডটি লোকালি প্রিভিউ করে দেখার জন্য.
+
+---
+
+## 🔒 নিরাপত্তা ও অ্যাক্সেসিবিলিটি (Security & Best Practices)
+
+- **Strict Type Checking**: কোনো `any` টাইপ ছাড়াই সম্পূর্ণ টাইপস্ক্রিপ্ট টাইপ সুরক্ষা।
+- **Zero API Key Leakage**: ক্লায়েন্ট-সাইডে কোনো সেনসিটিভ সিক্রেট বা কি এক্সপোজ করা হয় না।
+- **Accessible UI**: পর্যাপ্ত কালার কনট্রাস্ট এবং কিবোর্ড ফ্রেন্ডলি ইন্টারঅ্যাকশন।
+- **Responsive Layout**: ডেস্কটপ, ল্যাপটপ, ট্যাবলেট এবং মোবাইল স্ক্রিনে সুন্দরভাবে কাজ করে।
+
+---
+
+## 📄 লাইসেন্স (License)
+
+এই প্রজেক্টটি একটি প্রাইভেট ক্লাউড ডেপ্লয়মেন্ট স্যুট হিসেবে তৈরি করা হয়েছে। সর্বস্বত্ব সংরক্ষিত।

@@ -1,0 +1,261 @@
+import { AIEndpointRoute, AIGatewayLog, PromptTemplate, GuardrailRule } from '../types/aiGateway';
+
+export const INITIAL_AI_ROUTES: AIEndpointRoute[] = [
+  {
+    id: 'route_gemini_prod',
+    name: 'Unified Core Inference Proxy',
+    slug: '/v1/ai/generate',
+    description: 'High-throughput edge router routing to Gemini 3.8 Flash with automated failover and semantic response cache.',
+    primaryProvider: 'google_gemini',
+    primaryModel: 'gemini-3.8-flash',
+    fallbackProvider: 'google_gemini',
+    fallbackModel: 'gemini-3.1-flash-lite',
+    status: 'active',
+    cachingEnabled: true,
+    cacheTtlSeconds: 3600,
+    rateLimitRpm: 1200,
+    tokenBucketMax: 3000000,
+    tokensConsumed24h: 1845200,
+    requests24h: 42890,
+    cacheHitRatio: 41.8,
+    avgLatencyMs: 312,
+    costEstimate24h: 1.48,
+    timeoutMs: 12000,
+    retryCount: 2
+  },
+  {
+    id: 'route_reasoning_agent',
+    name: 'Complex Reasoning & Tool Agent',
+    slug: '/v1/ai/agent-reason',
+    description: 'Deep multi-step reasoning pipeline utilizing Gemini 3.1 Pro Preview with function-calling parameter verification.',
+    primaryProvider: 'google_gemini',
+    primaryModel: 'gemini-3.1-pro-preview',
+    fallbackProvider: 'anthropic',
+    fallbackModel: 'claude-3-7-sonnet',
+    status: 'active',
+    cachingEnabled: false,
+    cacheTtlSeconds: 0,
+    rateLimitRpm: 300,
+    tokenBucketMax: 1000000,
+    tokensConsumed24h: 942100,
+    requests24h: 8430,
+    cacheHitRatio: 0,
+    avgLatencyMs: 840,
+    costEstimate24h: 5.65,
+    timeoutMs: 30000,
+    retryCount: 1
+  },
+  {
+    id: 'route_multimodal_vision',
+    name: 'Computer Vision & Asset Classifier',
+    slug: '/v1/ai/vision-parser',
+    description: 'Image OCR and product label extraction routing to Gemini 3.1 Flash Lite Image.',
+    primaryProvider: 'google_gemini',
+    primaryModel: 'gemini-3.1-flash-lite-image',
+    fallbackProvider: 'openai',
+    fallbackModel: 'gpt-4o-mini',
+    status: 'active',
+    cachingEnabled: true,
+    cacheTtlSeconds: 7200,
+    rateLimitRpm: 600,
+    tokenBucketMax: 1500000,
+    tokensConsumed24h: 412000,
+    requests24h: 6120,
+    cacheHitRatio: 64.2,
+    avgLatencyMs: 495,
+    costEstimate24h: 1.15,
+    timeoutMs: 15000,
+    retryCount: 2
+  },
+  {
+    id: 'route_search_grounding',
+    name: 'Grounded Live Knowledge Proxy',
+    slug: '/v1/ai/live-search',
+    description: 'Real-time web grounding pipeline querying Google Search with citations generation.',
+    primaryProvider: 'google_gemini',
+    primaryModel: 'gemini-3.8-flash',
+    status: 'active',
+    cachingEnabled: true,
+    cacheTtlSeconds: 1800,
+    rateLimitRpm: 450,
+    tokenBucketMax: 800000,
+    tokensConsumed24h: 310500,
+    requests24h: 4320,
+    cacheHitRatio: 28.5,
+    avgLatencyMs: 620,
+    costEstimate24h: 0.92,
+    timeoutMs: 20000,
+    retryCount: 2
+  }
+];
+
+export const INITIAL_GATEWAY_LOGS: AIGatewayLog[] = [
+  {
+    id: 'log-89104',
+    timestamp: '2s ago',
+    routeId: 'route_gemini_prod',
+    routeSlug: '/v1/ai/generate',
+    model: 'gemini-3.8-flash',
+    provider: 'google_gemini',
+    status: '200_ok',
+    promptTokens: 248,
+    completionTokens: 86,
+    totalTokens: 334,
+    latencyMs: 295,
+    cost: 0.000033,
+    clientIp: '198.51.100.44',
+    cached: false
+  },
+  {
+    id: 'log-89103',
+    timestamp: '14s ago',
+    routeId: 'route_gemini_prod',
+    routeSlug: '/v1/ai/generate',
+    model: 'gemini-3.8-flash',
+    provider: 'google_gemini',
+    status: 'cached',
+    promptTokens: 142,
+    completionTokens: 75,
+    totalTokens: 217,
+    latencyMs: 14,
+    cost: 0.0,
+    clientIp: '203.0.113.88',
+    cached: true
+  },
+  {
+    id: 'log-89102',
+    timestamp: '38s ago',
+    routeId: 'route_reasoning_agent',
+    routeSlug: '/v1/ai/agent-reason',
+    model: 'gemini-3.1-pro-preview',
+    provider: 'google_gemini',
+    status: '200_ok',
+    promptTokens: 1420,
+    completionTokens: 610,
+    totalTokens: 2030,
+    latencyMs: 780,
+    cost: 0.00284,
+    clientIp: '192.0.2.115',
+    cached: false
+  },
+  {
+    id: 'log-89101',
+    timestamp: '1m ago',
+    routeId: 'route_multimodal_vision',
+    routeSlug: '/v1/ai/vision-parser',
+    model: 'gemini-3.1-flash-lite-image',
+    provider: 'google_gemini',
+    status: 'cached',
+    promptTokens: 680,
+    completionTokens: 94,
+    totalTokens: 774,
+    latencyMs: 19,
+    cost: 0.0,
+    clientIp: '198.51.100.92',
+    cached: true
+  },
+  {
+    id: 'log-89100',
+    timestamp: '2m ago',
+    routeId: 'route_reasoning_agent',
+    routeSlug: '/v1/ai/agent-reason',
+    model: 'gemini-3.1-pro-preview',
+    provider: 'google_gemini',
+    status: 'fallback_triggered',
+    promptTokens: 1890,
+    completionTokens: 420,
+    totalTokens: 2310,
+    latencyMs: 920,
+    cost: 0.00310,
+    clientIp: '198.51.100.12',
+    cached: false
+  },
+  {
+    id: 'log-89099',
+    timestamp: '4m ago',
+    routeId: 'route_search_grounding',
+    routeSlug: '/v1/ai/live-search',
+    model: 'gemini-3.8-flash',
+    provider: 'google_gemini',
+    status: '200_ok',
+    promptTokens: 380,
+    completionTokens: 210,
+    totalTokens: 590,
+    latencyMs: 580,
+    cost: 0.000088,
+    clientIp: '203.0.113.19',
+    cached: false
+  }
+];
+
+export const INITIAL_GUARDRAILS: GuardrailRule[] = [
+  {
+    id: 'guard-1',
+    name: 'PII & Financial Data Redaction',
+    type: 'pii_masking',
+    action: 'sanitize',
+    enabled: true,
+    blockedCount24h: 184,
+    sensitivity: 'strict'
+  },
+  {
+    id: 'guard-2',
+    name: 'Prompt Injection & Jailbreak Defense',
+    type: 'semantic_injection',
+    action: 'block',
+    enabled: true,
+    blockedCount24h: 37,
+    sensitivity: 'strict'
+  },
+  {
+    id: 'guard-3',
+    name: 'Per-User Token Spend Ceiling ($10/hr)',
+    type: 'budget_ceiling',
+    action: 'block',
+    enabled: true,
+    blockedCount24h: 5,
+    sensitivity: 'medium'
+  },
+  {
+    id: 'guard-4',
+    name: 'Toxicity & Hate Speech Interceptor',
+    type: 'toxic_language',
+    action: 'block',
+    enabled: true,
+    blockedCount24h: 12,
+    sensitivity: 'strict'
+  }
+];
+
+export const INITIAL_PROMPT_TEMPLATES: PromptTemplate[] = [
+  {
+    id: 'tmpl-support-triage',
+    title: 'Support Ticket Incident Classifier',
+    version: 'v2.4.1',
+    modelTarget: 'gemini-3.8-flash',
+    systemInstruction: 'You are an SRE incident classifier. Given a technical problem report, classify priority into P1, P2, P3 or P4, identify the root-cause subsystem, and output structured JSON.',
+    defaultTemperature: 0.1,
+    tags: ['Customer Support', 'Classification', 'JSON Mode'],
+    lastUpdated: 'Today at 09:20'
+  },
+  {
+    id: 'tmpl-sql-generator',
+    title: 'PostgreSQL Schema Safe Query Builder',
+    version: 'v1.8.0',
+    modelTarget: 'gemini-3.1-pro-preview',
+    systemInstruction: 'You are a read-only database query assistant. Generate syntactically valid Postgres SQL statements conforming to standard ANSI SQL without destructive statements (no DROP, TRUNCATE, ALTER).',
+    defaultTemperature: 0.2,
+    tags: ['Database', 'SQL', 'Security'],
+    lastUpdated: 'Yesterday'
+  },
+  {
+    id: 'tmpl-pr-summarizer',
+    title: 'Git Commit & Pull Request Summarizer',
+    version: 'v3.0.0',
+    modelTarget: 'gemini-3.8-flash',
+    systemInstruction: 'Analyze the git unified diff provided. Produce an executive summary bullet list followed by breaking change notifications.',
+    defaultTemperature: 0.4,
+    tags: ['CI/CD', 'Git', 'Summarization'],
+    lastUpdated: '3 days ago'
+  }
+];

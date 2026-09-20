@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+/* High-Contrast Light Theme Rules */
+html[data-theme="light"],
+body.light,
+[data-theme="light"] {
+  color-scheme: light;
+  background-color: #ffffff;
+  color: #09090b;
+}
+
+/* Base surface overrides in Light High-Contrast */
+[data-theme="light"] .bg-neutral-950 {
+  background-color: #ffffff !important;
+}
+
+[data-theme="light"] .bg-neutral-900 {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="light"] .bg-neutral-900\/90 {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(8px);
+}
+
+[data-theme="light"] .bg-neutral-900\/80,
+[data-theme="light"] .bg-neutral-900\/70,
+[data-theme="light"] .bg-neutral-900\/60,
+[data-theme="light"] .bg-neutral-900\/50 {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="light"] .bg-neutral-800 {
+  background-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .bg-neutral-800\/60,
+[data-theme="light"] .bg-neutral-800\/50,
+[data-theme="light"] .bg-neutral-800\/40,
+[data-theme="light"] .bg-neutral-800\/30 {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .hover\:bg-neutral-800:hover {
+  background-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .hover\:bg-neutral-800\/60:hover,
+[data-theme="light"] .hover\:bg-neutral-800\/80:hover {
+  background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .hover\:bg-neutral-700:hover,
+[data-theme="light"] .hover\:bg-neutral-700\/80:hover {
+  background-color: #cbd5e1 !important;
+}
+
+/* High-contrast borders */
+[data-theme="light"] .border-neutral-800 {
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .border-neutral-700 {
+  border-color: #94a3b8 !important;
+}
+
+[data-theme="light"] .border-neutral-600 {
+  border-color: #64748b !important;
+}
+
+[data-theme="light"] .divide-neutral-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #cbd5e1 !important;
+}
+
+/* High-contrast typography */
+[data-theme="light"] .text-white {
+  color: #09090b !important;
+}
+
+[data-theme="light"] .text-neutral-100 {
+  color: #09090b !important;
+}
+
+[data-theme="light"] .text-neutral-200 {
+  color: #18181b !important;
+}
+
+[data-theme="light"] .text-neutral-300 {
+  color: #27272a !important;
+}
+
+[data-theme="light"] .text-neutral-400 {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .text-neutral-500 {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .placeholder-neutral-400::placeholder,
+[data-theme="light"] .placeholder-neutral-500::placeholder {
+  color: #64748b !important;
+}
+
+/* Primary buttons that are white-on-dark in dark mode should be dark-on-white in light mode */
+[data-theme="light"] button.bg-white.text-black,
+[data-theme="light"] a.bg-white.text-black {
+  background-color: #09090b !important;
+  color: #ffffff !important;
+  border: 1px solid #09090b !important;
+}
+
+[data-theme="light"] button.bg-white.text-black:hover,
+[data-theme="light"] a.bg-white.text-black:hover {
+  background-color: #27272a !important;
+  color: #ffffff !important;
+}
+
+/* High contrast status pills in light mode */
+[data-theme="light"] .bg-emerald-950,
+[data-theme="light"] .bg-emerald-950\/60 {
+  background-color: #ecfdf5 !important;
+  color: #047857 !important;
+  border-color: #6ee7b7 !important;
+}
+
+[data-theme="light"] .text-emerald-400,
+[data-theme="light"] .text-emerald-300 {
+  color: #047857 !important;
+}
+
+[data-theme="light"] .border-emerald-800,
+[data-theme="light"] .border-emerald-800\/80 {
+  border-color: #a7f3d0 !important;
+}
+
+[data-theme="light"] .bg-rose-950,
+[data-theme="light"] .bg-rose-950\/60 {
+  background-color: #fff1f2 !important;
+  color: #be123c !important;
+  border-color: #fca5a5 !important;
+}
+
+[data-theme="light"] .text-rose-400,
+[data-theme="light"] .text-rose-300 {
+  color: #be123c !important;
+}
+
+[data-theme="light"] .border-rose-800,
+[data-theme="light"] .border-rose-800\/80 {
+  border-color: #fecdd3 !important;
+}
+
+[data-theme="light"] .bg-amber-950,
+[data-theme="light"] .bg-amber-950\/60 {
+  background-color: #fffbeb !important;
+  color: #b45309 !important;
+  border-color: #fcd34d !important;
+}
+
+[data-theme="light"] .text-amber-400,
+[data-theme="light"] .text-amber-300 {
+  color: #b45309 !important;
+}
+
+[data-theme="light"] .border-amber-800,
+[data-theme="light"] .border-amber-800\/80 {
+  border-color: #fde68a !important;
+}
+
+[data-theme="light"] .bg-blue-950,
+[data-theme="light"] .bg-blue-950\/60 {
+  background-color: #eff6ff !important;
+  color: #1d4ed8 !important;
+  border-color: #93c5fd !important;
+}
+
+[data-theme="light"] .text-blue-400,
+[data-theme="light"] .text-blue-300 {
+  color: #1d4ed8 !important;
+}
+
+/* Card hover and high-contrast card borders */
+[data-theme="light"] .group:hover {
+  border-color: #64748b !important;
+}
+
+/* Inputs and interactive forms */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] input:focus,
+[data-theme="light"] select:focus,
+[data-theme="light"] textarea:focus {
+  border-color: #0f172a !important;
+  outline-color: #0f172a !important;
+}
+
+/* Keyboard shortcut indicators */
+[data-theme="light"] kbd {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+/* Modals and overlays */
+[data-theme="light"] .fixed.inset-0.bg-black\/80 {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(4px);
+}
+
+/* Light Scrollbar Styling */
+[data-theme="light"] ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* High-contrast light banners */
+[data-theme="light"] .from-neutral-900.via-neutral-900.to-indigo-950\/40 {
+  background-image: linear-gradient(to right, #f8fafc, #f1f5f9, #e0e7ff) !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Code & Log Terminals in Light Mode */
+[data-theme="light"] pre,
+[data-theme="light"] code {
+  color: #09090b !important;
+}
