@@ -1,6 +1,6 @@
 {
   "name": "Cloud Project Console & Deployment Hub",
-  "description": "Project deployment management console with edge image optimization pipeline, isolated Firecracker microVM sandboxes, autonomous Ops agent self-healing, AI Gateway inference proxy, Gmail alerts, Connect VPC interconnects, integrations, unified serverless storage, and feature flags.",
+  "description": "Interactive cloud deployment platform featuring Slack webhook build notifications and custom channel routing, GitHub repository deployment pipeline, live in-app interactive site preview with custom domain routing, side-by-side deployment comparison with configuration and build log diffs, and security credential management.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   ProjectItem, 
   DeploymentLog 
@@ -19,8 +19,10 @@ import {
   Copy,
   Clock,
   Zap,
-  Lock
+  Lock,
+  ArrowLeftRight
 } from 'lucide-react';
+import { LiveAppViewer } from './LiveAppViewer';
 
 interface ProjectDetailModalProps {
   project: ProjectItem;
@@ -28,6 +30,7 @@ interface ProjectDetailModalProps {
   onClose: () => void;
   onSendAlert: (project: ProjectItem) => void;
   onRebuild: (projectId: string) => void;
+  onOpenCompare?: (project: ProjectItem) => void;
 }
 
 export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
@@ -35,8 +38,10 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   logs,
   onClose,
   onSendAlert,
-  onRebuild
+  onRebuild,
+  onOpenCompare
 }) => {
+  const [modalView, setModalView] = useState<'details' | 'live'>('details');
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
       <div 
@@ -72,6 +77,31 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
           <div className="flex items-center gap-2">
             <button
+              id="modal-toggle-live-view-btn"
+              onClick={() => setModalView(v => v === 'live' ? 'details' : 'live')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors border ${
+                modalView === 'live'
+                  ? 'bg-emerald-600 text-white border-emerald-500 shadow-xs'
+                  : 'bg-neutral-800 hover:bg-neutral-700 text-neutral-200 border-neutral-700'
+              }`}
+              title="Open interactive in-app live browser for this project"
+            >
+              <Globe className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{modalView === 'live' ? 'Back to Metrics' : 'Live In-App App'}</span>
+            </button>
+
+            {onOpenCompare && (
+              <button
+                id="modal-compare-deployments-btn"
+                onClick={() => onOpenCompare(project)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 rounded-md text-xs font-medium border border-neutral-700 transition-colors"
+                title="Compare past deployments and inspect diffs"
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5 text-blue-400" />
+                <span>Compare</span>
+              </button>
+            )}
+            <button
               onClick={() => onSendAlert(project)}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 rounded-md text-xs font-medium border border-neutral-700 transition-colors"
             >
@@ -95,8 +125,13 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* Quick Metrics Cards */}
+        {modalView === 'live' ? (
+          <div className="flex-1 overflow-hidden p-3 bg-neutral-950">
+            <LiveAppViewer project={project} standalone={true} />
+          </div>
+        ) : (
+          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            {/* Quick Metrics Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="bg-neutral-950/70 border border-neutral-800 p-3 rounded-lg">
               <span className="text-[11px] text-neutral-400 block">24h Edge Requests</span>
@@ -212,6 +247,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
             </div>
           </div>
         </div>
+        )}
 
         {/* Footer */}
         <div className="px-6 py-3 border-t border-neutral-800 bg-neutral-950 flex items-center justify-between text-xs text-neutral-400">

@@ -22,10 +22,11 @@ import {
   HelpCircle, 
   Settings, 
   Bell, 
-  Mail,
-  Zap,
-  ExternalLink,
-  LifeBuoy
+  Mail, 
+  Zap, 
+  ExternalLink, 
+  LifeBuoy,
+  Github
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -35,6 +36,7 @@ interface SidebarProps {
   gmailConnected: boolean;
   onOpenGmailModal: () => void;
   onOpenLandingPage?: () => void;
+  onOpenGitHubModal?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -43,7 +45,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   unreadAlertsCount,
   gmailConnected,
   onOpenGmailModal,
-  onOpenLandingPage
+  onOpenLandingPage,
+  onOpenGitHubModal
 }) => {
   const mainNavigation = [
     { id: 'projects', label: 'Projects', icon: FolderGit2, badge: '38' },
@@ -64,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'agent', label: 'Agent', icon: Bot, isNew: true },
     { id: 'ai_gateway', label: 'AI Gateway', icon: Cpu, badge: 'Edge' },
     { id: 'sandboxes', label: 'Sandboxes', icon: Box, badge: 'MicroVM' },
-    { id: 'workflows', label: 'Workflows', icon: GitFork },
+    { id: 'workflows', label: 'Workflows', icon: GitFork, badge: 'DAG', isNew: true },
     { id: 'images', label: 'Images', icon: ImageIcon, badge: 'Pipeline' },
     { id: 'usage', label: 'Usage', icon: PieChart },
     { id: 'gmail_alerts', label: 'Gmail Alerts', icon: Mail, badge: unreadAlertsCount > 0 ? `${unreadAlertsCount}` : undefined, highlight: true }
@@ -89,7 +92,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Gmail Integration Status Banner in Sidebar */}
-      <div className="px-3 pt-3">
+      <div className="px-3 pt-3 space-y-2">
+        {onOpenGitHubModal && (
+          <button
+            id="sidebar-github-deploy-btn"
+            onClick={onOpenGitHubModal}
+            className="w-full flex items-center justify-center gap-2 p-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs transition-all shadow-md"
+          >
+            <Github className="w-4 h-4" />
+            <span>Deploy from GitHub</span>
+          </button>
+        )}
+
         <button
           id="sidebar-gmail-status-btn"
           onClick={onOpenGmailModal}
@@ -151,6 +165,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="p-3 border-t border-neutral-800 space-y-1.5">
         <ThemeToggle id="sidebar-theme-toggle" variant="expanded" />
 
+        {onOpenLandingPage && (
+          <button 
+            id="sidebar-landing-page-btn"
+            onClick={onOpenLandingPage}
+            className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs text-indigo-300 hover:text-white bg-indigo-950/40 hover:bg-indigo-900/60 border border-indigo-800/40 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-indigo-400" />
+              <span className="font-medium">Landing & About</span>
+            </div>
+            <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-indigo-900 text-indigo-200">HOME</span>
+          </button>
+        )}
+
         <button 
           id="sidebar-help-btn"
           onClick={() => setActiveTab('support')}
@@ -166,10 +194,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <button 
           id="sidebar-settings-btn"
           onClick={() => setActiveTab('settings')}
-          className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/60"
+          className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors ${
+            activeTab === 'settings' 
+              ? 'bg-neutral-800 text-white font-medium shadow-xs' 
+              : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/60'
+          }`}
         >
-          <Settings className="w-4 h-4" />
-          <span>Account Settings</span>
+          <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'text-white' : 'text-neutral-400'}`} />
+          <span>Account & Security</span>
         </button>
       </div>
     </aside>

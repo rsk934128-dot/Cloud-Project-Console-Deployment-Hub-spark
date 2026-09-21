@@ -31,3 +31,21 @@ export interface WebhookDeliveryLog {
   requestPayload: string;
   responsePayload: string;
 }
+
+export interface SlackWebhookConfig {
+  webhookUrl: string;
+  channel: string;
+  botName: string;
+  botEmoji: string;
+  scopeProject: string;
+  notifyOnBuildSuccess: boolean;
+  notifyOnBuildFail: boolean;
+  notifyOnDeployStart: boolean;
+  notifyOnDDoSAlert: boolean;
+  includeLivePreviewLink: boolean;
+  messageFormat: 'detailed' | 'compact';
+  isEnabled: boolean;
+  lastTestedAt?: string;
+  lastDeliveryStatus?: 'success' | 'failed' | null;
+}
+

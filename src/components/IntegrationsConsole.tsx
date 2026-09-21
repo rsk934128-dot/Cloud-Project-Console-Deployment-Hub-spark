@@ -4,12 +4,14 @@ import {
   IntegrationItem, 
   IntegrationCategory, 
   IntegrationStatus, 
-  WebhookDeliveryLog 
+  WebhookDeliveryLog,
+  SlackWebhookConfig
 } from '../types/integrations';
 import { 
   INITIAL_INTEGRATIONS, 
   INITIAL_WEBHOOK_LOGS 
 } from '../data/integrationsData';
+import { SlackWebhookConfigPanel } from './SlackWebhookConfigPanel';
 import {
   Radio,
   Plus,
@@ -50,7 +52,7 @@ interface IntegrationsConsoleProps {
 }
 
 export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projects }) => {
-  const [activeTab, setActiveTab] = useState<'installed' | 'marketplace' | 'webhooks' | 'custom_webhook'>('installed');
+  const [activeTab, setActiveTab] = useState<'installed' | 'marketplace' | 'slack_webhook' | 'webhooks' | 'custom_webhook'>('installed');
   const [categoryFilter, setCategoryFilter] = useState<IntegrationCategory>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -301,6 +303,16 @@ export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projec
             <span>{isSyncingAll ? 'Syncing Vaults...' : 'Sync Variables'}</span>
           </button>
 
+          {/* Slack Build Notifications CTA */}
+          <button
+            id="btn-open-slack-webhook"
+            onClick={() => setActiveTab('slack_webhook')}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-800 text-xs font-semibold rounded-lg shadow-xs transition-colors"
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Slack Build Webhook</span>
+          </button>
+
           {/* Test Webhook */}
           <button
             id="btn-test-webhook-dispatch"
@@ -373,11 +385,11 @@ export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projec
       </div>
 
       {/* Navigation Sub-Tabs */}
-      <div className="flex items-center gap-1 border-b border-neutral-800 pb-px text-xs font-semibold">
+      <div className="flex items-center gap-1 border-b border-neutral-800 pb-px text-xs font-semibold overflow-x-auto">
         <button
           id="tab-installed-integrations"
           onClick={() => setActiveTab('installed')}
-          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'installed'
               ? 'border-indigo-500 text-white'
               : 'border-transparent text-neutral-400 hover:text-neutral-200'
@@ -388,9 +400,25 @@ export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projec
         </button>
 
         <button
+          id="tab-slack-notifications"
+          onClick={() => setActiveTab('slack_webhook')}
+          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 shrink-0 ${
+            activeTab === 'slack_webhook'
+              ? 'border-emerald-500 text-white'
+              : 'border-transparent text-neutral-400 hover:text-neutral-200'
+          }`}
+        >
+          <MessageSquare className="w-4 h-4 text-emerald-400" />
+          <span>Slack Build Notifications</span>
+          <span className="px-1.5 py-0.2 rounded-full bg-emerald-950 text-emerald-400 text-[10px] border border-emerald-800 font-mono">
+            Webhook
+          </span>
+        </button>
+
+        <button
           id="tab-marketplace-catalog"
           onClick={() => setActiveTab('marketplace')}
-          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'marketplace'
               ? 'border-indigo-500 text-white'
               : 'border-transparent text-neutral-400 hover:text-neutral-200'
@@ -403,7 +431,7 @@ export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projec
         <button
           id="tab-webhook-deliveries"
           onClick={() => setActiveTab('webhooks')}
-          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'webhooks'
               ? 'border-indigo-500 text-white'
               : 'border-transparent text-neutral-400 hover:text-neutral-200'
@@ -416,7 +444,7 @@ export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projec
         <button
           id="tab-custom-webhook"
           onClick={() => setActiveTab('custom_webhook')}
-          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 border-b-2 transition-all flex items-center gap-2 shrink-0 ${
             activeTab === 'custom_webhook'
               ? 'border-indigo-500 text-white'
               : 'border-transparent text-neutral-400 hover:text-neutral-200'
@@ -497,19 +525,61 @@ export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projec
                       Installed {item.installedAt}
                     </span>
 
-                    <button
-                      onClick={() => handleDisconnect(item.id, item.name)}
-                      className="text-neutral-500 hover:text-rose-400 transition-colors text-[11px] font-semibold flex items-center gap-1"
-                    >
-                      <Trash2 className="w-3 h-3" />
-                      <span>Disconnect</span>
-                    </button>
+                    <div className="flex items-center gap-2">
+                      {item.slug === 'slack' && (
+                        <button
+                          onClick={() => setActiveTab('slack_webhook')}
+                          className="text-emerald-400 hover:text-emerald-300 transition-colors text-[11px] font-semibold flex items-center gap-1 bg-emerald-950/60 border border-emerald-800/60 px-2 py-1 rounded shadow-2xs"
+                        >
+                          <MessageSquare className="w-3 h-3" />
+                          <span>Configure Webhook</span>
+                        </button>
+                      )}
+
+                      <button
+                        onClick={() => handleDisconnect(item.id, item.name)}
+                        className="text-neutral-500 hover:text-rose-400 transition-colors text-[11px] font-semibold flex items-center gap-1"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        <span>Disconnect</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
         </div>
+      )}
+
+      {/* TAB: SLACK BUILD NOTIFICATIONS & WEBHOOK CONFIGURATION */}
+      {activeTab === 'slack_webhook' && (
+        <SlackWebhookConfigPanel
+          projects={projects}
+          onTestWebhookLog={(newLog) => {
+            setWebhookLogs((prev) => [newLog, ...prev]);
+          }}
+          onConfigSaved={(cfg) => {
+            setIntegrations((prev) =>
+              prev.map((i) =>
+                i.slug === 'slack'
+                  ? {
+                      ...i,
+                      webhookUrl: cfg.webhookUrl,
+                      lastSync: 'Just now',
+                      config: {
+                        ...i.config,
+                        channel: cfg.channel,
+                        notifyOnDeploy: cfg.notifyOnBuildSuccess ? 'true' : 'false',
+                        notifyOnFail: cfg.notifyOnBuildFail ? 'true' : 'false'
+                      }
+                    }
+                  : i
+              )
+            );
+          }}
+          showToast={showToast}
+        />
       )}
 
       {/* TAB 2: MARKETPLACE / CATALOG */}
@@ -1011,6 +1081,19 @@ export const IntegrationsConsole: React.FC<IntegrationsConsoleProps> = ({ projec
                 )}
 
                 <div className="flex items-center gap-2">
+                  {selectedIntegration.slug === 'slack' && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedIntegration(null);
+                        setActiveTab('slack_webhook');
+                      }}
+                      className="px-3 py-2 bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 rounded-lg font-semibold text-xs flex items-center gap-1.5"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      <span>Configure Webhook</span>
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => setSelectedIntegration(null)}

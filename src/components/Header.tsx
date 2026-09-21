@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bell, Sparkles, Terminal, RefreshCw, Send, CheckCircle2 } from 'lucide-react';
+import { Search, Bell, Sparkles, Terminal, RefreshCw, Send, CheckCircle2, Globe, LogOut, Github } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
@@ -13,6 +13,10 @@ interface HeaderProps {
   gmailConnected: boolean;
   onQuickSimulateAlert: () => void;
   onThemeSwitched?: (theme: 'dark' | 'light') => void;
+  onOpenLandingPage?: () => void;
+  isLoggedIn?: boolean;
+  onLogout?: () => void;
+  onOpenGitHubModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -25,7 +29,11 @@ export const Header: React.FC<HeaderProps> = ({
   unreadAlertsCount,
   gmailConnected,
   onQuickSimulateAlert,
-  onThemeSwitched
+  onThemeSwitched,
+  onOpenLandingPage,
+  isLoggedIn,
+  onLogout,
+  onOpenGitHubModal
 }) => {
   return (
     <header id="app-header" className="h-14 border-b border-neutral-800 bg-neutral-900/90 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-20">
@@ -49,6 +57,18 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Header Actions */}
       <div className="flex items-center gap-2.5">
+        {onOpenGitHubModal && (
+          <button
+            id="btn-header-github-deploy"
+            onClick={onOpenGitHubModal}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-md text-xs font-semibold transition-colors shadow-xs"
+            title="Import from GitHub and deploy live URL"
+          >
+            <Github className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Deploy Repo</span>
+          </button>
+        )}
+
         <button
           id="btn-header-refresh"
           onClick={onRefresh}
@@ -103,11 +123,36 @@ export const Header: React.FC<HeaderProps> = ({
           onThemeChange={onThemeSwitched}
         />
 
-        {/* User avatar badge */}
+        {/* Home / Landing button */}
+        {onOpenLandingPage && (
+          <button
+            id="btn-header-landing-link"
+            onClick={onOpenLandingPage}
+            className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white rounded-md text-xs font-medium border border-neutral-700 transition-colors"
+            title="ভিউ ল্যান্ডিং পেজ ও প্রজেক্ট পরিচিতি"
+          >
+            <Globe className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Landing Page</span>
+          </button>
+        )}
+
+        {/* User avatar badge with sign out option */}
         <div className="flex items-center gap-2 pl-2 border-l border-neutral-800">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center text-[11px] font-bold text-white shadow-xs">
+          <div 
+            className="w-7 h-7 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center text-[11px] font-bold text-white shadow-xs cursor-pointer"
+            title="Current Account: rasadsk007@gmail.com"
+          >
             R
           </div>
+          {onLogout && (
+            <button
+              onClick={onLogout}
+              className="p-1 text-neutral-400 hover:text-rose-400 hover:bg-neutral-800 rounded transition-colors"
+              title="লগআউট করে ল্যান্ডিং পেজে যান"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
       </div>
     </header>

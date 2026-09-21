@@ -100,8 +100,10 @@ export const INITIAL_INTEGRATIONS: IntegrationItem[] = [
     lastSync: 'Just now',
     isOfficial: true,
     config: {
-      appId: '891241',
-      org: 'enterprise-core',
+      owner: '@rsk934128-dot',
+      appId: '5019732',
+      clientId: 'Iv23lid9y3Nvy06uq3AA',
+      authMethod: 'Client ID Token Generation',
       commentOnPR: 'true'
     }
   },
